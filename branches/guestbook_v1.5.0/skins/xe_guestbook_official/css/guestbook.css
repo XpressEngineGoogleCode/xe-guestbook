@@ -29,12 +29,12 @@ fieldset{padding-right:10px;padding-bottom:0;padding-left:0;border:0}
 .feedback .meta{padding:6px 20px 0 0}
 .feedback .date{float:left;margin:0 24px 0 0;color:#666;font-size:11px}
 .feedback .reAction{margin:0;padding:0;white-space:nowrap;list-style:none outside none; position:absolute; right:13px; top:12px;}
-.feedback .reAction li{display:inline;float:left;padding:0 8px 0 5px;background:url('../img/line_v2.gif') no-repeat scroll 100% 3px transparent;vertical-align:middle}
+.feedback .reAction li{display:inline;float:left;padding:0 8px 0 5px;vertical-align:middle}
 .feedback .reAction li.last{ background:none}
 .feedback .reAction li a{color:#008cd7;font-size:12px;text-decoration:none;cursor:pointer}
 .feedback .data{color:#767676}
 .reply .data{margin-top:40px;color:#767676}
-.feedback .meta .author{float:left;margin:-1px 8px 0 0;padding:0 10px 0 0;color:#666;font-size:12px;background:url('../img/line_v2.gif') no-repeat scroll 100% 3px}
+.feedback .meta .author{float:left;margin:-1px 8px 0 0;padding:0 10px 0 0;color:#666;font-size:12px;}
 .feedback .item.indent.indent1{margin:-12px 0 20px 7px;padding:6px 0 0 20px;background-position:0 0;}
 .feedback .item.indent{background:url('../img/iconIndent.gif') no-repeat scroll 0 0 transparent}
 .pagination{padding:0 0 70px;text-align:center; margin-top:28px;}
