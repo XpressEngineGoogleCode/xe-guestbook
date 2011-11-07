@@ -44,23 +44,7 @@ class guestbookController extends guestbook {
 			}else{
 				$obj->email_address = $val->email_address;
 				$obj->password = md5($val->password);
-				$oGuestbookModel = &getModel('guestbook');
-
-				// only registered user can insert guestbook items
-				$memberInfo = $oGuestbookModel->getMemberInfo($obj);
-				if($memberInfo->data){
-					$obj->member_srl = $memberInfo->data[0]->member_srl;
-					$obj->user_id = $memberInfo->data[0]->user_id;
-					$obj->nick_name = $memberInfo->data[0]->nick_name;
-					$obj->email_address = $memberInfo->data[0]->email_address;
-					$obj->homepage = $memberInfo->data[0]->homepage;
-				}else{
-					// for reply/for add message
-					if($val->parent_srl>0)
-						return new Object(-1, 'Invalid user, only registered user can add a commment to the message.');
-					else
-						return new Object(-1, 'Invalid user, only registered user can add a message to guestbook.');
-				}
+				$oGuestbookModel = &getModel('guestbook');		
 			}
 
 			$obj->guestbook_item_srl = getNextSequence();
