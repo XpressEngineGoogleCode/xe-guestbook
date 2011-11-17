@@ -20,7 +20,7 @@ class guestbookController extends guestbook {
 		$val = Context::gets('mid','email_address','password','content','parent_srl','guestbook_item_srl','page');
 		// set
 		$obj->module_srl = $this->module_srl;
-		$obj->content = $val->content;
+		$obj->content = strip_tags($val->content);
 
 		// update
 		if($val->guestbook_item_srl>0){
