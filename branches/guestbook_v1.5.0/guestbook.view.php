@@ -91,12 +91,15 @@
 				}
 			}
 
-
             Context::set('guestbook_list', $guestbook_list);
             Context::set('total_count', $output->total_count);
             Context::set('total_page', $output->total_page);
             Context::set('page', $output->page);
             Context::set('page_navigation', $output->page_navigation);
+
+			$security = new Security();
+			$security->encodeHTML('guestbook_list..content');
+
 		}
 
     }
