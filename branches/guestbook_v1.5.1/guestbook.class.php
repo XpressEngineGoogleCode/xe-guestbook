@@ -7,7 +7,7 @@
 
     class guestbook extends ModuleObject {
 
-        var $skin = "xe_guestbook"; ///< skin name
+        var $skin = "xe_guestbook_official"; ///< skin name
 		var $order_target = array('list_order', 'regdate','last_update');
         /**
          * @brief module installation
@@ -25,6 +25,8 @@
          **/
         function checkUpdate() {
             $oModuleModel = &getModel('module');
+			// 2012. 09. 11 when add new menu in sitemap, custom menu add
+			if(!$oModuleModel->getTrigger('menu.getModuleListInSitemap', 'guestbook', 'model', 'triggerModuleListInSitemap', 'after')) return true;
             return false;
         }
 
@@ -34,6 +36,9 @@
         function moduleUpdate() {
             $oModuleModel = &getModel('module');
             $oModuleController = &getController('module');
+			// 2012. 09. 11 when add new menu in sitemap, custom menu add
+			if(!$oModuleModel->getTrigger('menu.getModuleListInSitemap', 'guestbook', 'model', 'triggerModuleListInSitemap', 'after'))
+				$oModuleController->insertTrigger('menu.getModuleListInSitemap', 'guestbook', 'model', 'triggerModuleListInSitemap', 'after');
 
             return new Object(0, 'success_updated');
         }

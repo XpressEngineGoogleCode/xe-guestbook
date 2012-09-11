@@ -53,7 +53,7 @@
 			<th scope="row"><div>{$lang->skin}</div></th>
 			<td>
 				<select name="skin">
-					<option loop="$skin_list => $key,$val" value="{$key}" selected="selected"|cond="$module_info->skin==$key ||(!$module_info->skin && $key=='xe_guestbook')" >{$val->title}</option>
+					<option loop="$skin_list => $key,$val" value="{$key}" selected="selected"|cond="$module_info->skin==$key ||(!$module_info->skin && $key=='xe_guestbook_official')" >{$val->title}</option>
 				</select>
 				<p>{$lang->about_skin}</p>
 			</td>

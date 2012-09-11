@@ -21,7 +21,7 @@
              **/
             $template_path = sprintf("%sskins/%s/",$this->module_path, $this->module_info->skin);
             if(!is_dir($template_path)||!$this->module_info->skin) {
-                $this->module_info->skin = 'xe_guestbook';
+                $this->module_info->skin = 'xe_guestbook_official';
                 $template_path = sprintf("%sskins/%s/",$this->module_path, $this->module_info->skin);
             }
             $this->setTemplatePath($template_path);		
