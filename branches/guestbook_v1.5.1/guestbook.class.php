@@ -17,6 +17,7 @@
             $oModuleController = &getController('module');
             $oModuleModel = &getModel('module');
 			$oModuleController->insertTrigger('member.getMemberMenu', 'guestbook', 'controller', 'triggerMemberMenu', 'after');
+			$oModuleController->insertTrigger('member.getModuleListInSitemap', 'guestbook', 'model', 'triggerModuleListInSitemap', 'after');
             return new Object();
         }
 
