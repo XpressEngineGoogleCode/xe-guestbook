@@ -18,6 +18,9 @@ class guestbookController extends guestbook {
 	 **/
 	function procGuestbookInsertGuestbookItem(){
 		$val = Context::gets('mid','user_name','email_address','password','content','parent_srl','guestbook_item_srl','page');
+		if($val->parent_srl>0 && !$this->grant->write_reply) return new Object(-1,'msg_not_permitted');
+		if(!$val->parent_srl && !$this->grant->write) return new Object(-1,'msg_not_permitted');
+
 		// set
 		$obj->module_srl = $this->module_srl;
 		$obj->content = $val->content;
@@ -49,7 +52,6 @@ class guestbookController extends guestbook {
 				$obj->password = md5($val->password);
 				$oGuestbookModel = &getModel('guestbook');		
 			}
-
 			$obj->guestbook_item_srl = getNextSequence();
 			// reply
 			if($val->parent_srl>0){
@@ -85,25 +87,34 @@ class guestbookController extends guestbook {
 	function procGuestbookDeleteGuestbookItem(){
 		$guestbook_item_srl = Context::get('guestbook_item_srl');
         if(!$guestbook_item_srl) return new Object(-1,'msg_invalid_request');
+		$password = Context::get('password');
 
-        $logged_info = Context::get('logged_info');
-
-		$output = $this->deleteGuestbookItem($guestbook_item_srl);
+		$output = $this->deleteGuestbookItem($guestbook_item_srl,$password);
+		if(!$output->toBool()) return $output;
 	}
 
-	function deleteGuestbookItem($guestbook_item_srl){
+	function deleteGuestbookItem($guestbook_item_srl,$password = null,$password_ck = true){
 		$oGuestbookModel = &getModel('guestbook');
 		$output = $oGuestbookModel->getGuestbookItem($guestbook_item_srl);
 		$oGuest = $output->data;
 
 		if(!$oGuest) return new Object(-1,'msg_invalid_request');
+		
+		$logged_info = Context::get('logged_info');
+		//check grant
+		//is_logged
+		if(!$this->grant->manager)
+		{
+			if($oGuest->member_srl != $logged_info->member_srl) return new Object(-1,'msg_not_permitted');
+			if($password_ck && $oGuest->member_srl === '0' && $oGuest->password != md5($password)) return new Object(-1,'msg_not_permitted');
+		}
 
 		// delete children
 		$pobj->parent_srl = $guestbook_item_srl;
 		$output = executeQueryArray('guestbook.getGuestbookItem', $pobj);
 		if($output->data){
 			foreach($output->data as $k=>$v){
-				$poutput = $this->deleteGuestbookItem($v->guestbook_item_srl);
+				$poutput = $this->deleteGuestbookItem($v->guestbook_item_srl,$password,false);
 				if(!$poutput->toBool()) return $poutput;
 			}
 		}

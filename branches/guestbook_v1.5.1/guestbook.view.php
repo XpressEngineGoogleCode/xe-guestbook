@@ -11,6 +11,7 @@
          * @brief initialize guestbook view class.
          **/
 		function init() {
+			if(!$this->grant->access) return new Object(-1,'msg_not_permitted');
 
 			if($this->module_info->list_count) $this->list_count = $this->module_info->list_count;
             if($this->module_info->page_count) $this->page_count = $this->module_info->page_count;

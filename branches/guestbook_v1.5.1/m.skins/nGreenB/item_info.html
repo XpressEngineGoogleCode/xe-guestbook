@@ -20,7 +20,7 @@
 			<dd><span class="date">{zdate($guestbook_item->regdate,'Y-m-d')}</span><span class="time">{zdate($guestbook_item->regdate,'H:i')}</span></dd>
 			<dd class="function_area">
 				<ul class="btn_area">
-					<li class="btn_add"><a href="javascript:void()" onclick="return false">{$lang->cmd_reply}</a></li>
+					<li class="btn_add" cond="$grant->write_reply"><a href="javascript:void()" onclick="return false">{$lang->cmd_reply}</a></li>
 					<block cond="$guestbook_item->member_srl || $logged_info->is_admin == 'Y'">
 						<block cond="$logged_info->is_admin == 'Y'|| $logged_info->member_srl == $guestbook_item->member_srl">
 							<li class="btn_del"><a href="javascript:void()" onclick="return false" data="{$guestbook_item->guestbook_item_srl}">{$lang->cmd_delete}</a></li>

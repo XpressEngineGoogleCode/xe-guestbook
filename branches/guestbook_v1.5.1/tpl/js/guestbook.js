@@ -4,10 +4,10 @@
  * @brief  guestbook module javascript
  **/
 
-function deleteGuestbookItem(guestbook_item_srl,page){
+function deleteGuestbookItem(guestbook_item_srl,password){
     var params = new Array();
     params['guestbook_item_srl'] = guestbook_item_srl;
-	
+    params['password'] = password;
 	var response_tags = new Array('error','message','page','mid');
     exec_xml('guestbook', 'procGuestbookDeleteGuestbookItem', params, completeReload, response_tags);
 }
@@ -15,6 +15,5 @@ function deleteGuestbookItem(guestbook_item_srl,page){
 function completeReload(ret_obj) {
     var error = ret_obj['error'];
     var message = ret_obj['message'];
-
-    location.reload();
+	if(error == 0 ) location.reload();
 }

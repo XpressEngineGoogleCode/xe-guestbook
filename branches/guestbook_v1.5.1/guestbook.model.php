@@ -81,15 +81,11 @@
             $oMemberModel = &getModel('member');
 
             $args->guestbook_item_srl = $guestbook_item_srl;
-            $output = executeQueryArray('guestbook.getGuestbookItem',$args);
-            if($output->data){
-                foreach($output->data as $key => $val) {
-                    if(!$val->member_srl) continue;
-                    $profile_info = $oMemberModel->getProfileImage($val->member_srl);
-                    if($profile_info) $output->data[$key]->profile_image = $profile_info->src;
-                }
+            $output = executeQuery('guestbook.getGuestbookItem',$args);
+            if($output->data->member_srl){
+				$profile_info = $oMemberModel->getProfileImage($output->data->member_srl);
+                if($profile_info) $output->data->profile_image = $profile_info->src;
             }
-
             return $output;
         }
 

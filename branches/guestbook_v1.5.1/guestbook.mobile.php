@@ -40,13 +40,10 @@ class guestbookMobile extends guestbookView {
 
 			$oGuestbookModel = &getModel('guestbook');
 			$guestbook_item = $oGuestbookModel->getGuestbookItem($guestbook_item_srl);
-			$guestbook_item = $guestbook_item->data[0];
-
 			$comment_list = $oGuestbookModel->getGuestbookItemComment($guestbook_item_srl);
-			$comment_list = $comment_list ->data;
 
-			Context::set('guestbook_item',$guestbook_item);
-			Context::set('comment_list',$comment_list);
+			Context::set('guestbook_item',$guestbook_item->data);
+			Context::set('comment_list',$comment_list->data);
 			$this->setTemplateFile('item_info');
 		}
 
@@ -55,7 +52,6 @@ class guestbookMobile extends guestbookView {
 			$guestbook_item_srl = $vars->guestbook_item_srl;
 			$oGuestbookModel = &getModel('guestbook');
 			$guestbook_item = $oGuestbookModel->getGuestbookItem($guestbook_item_srl);
-			$guestbook_item = $guestbook_item->data[0];
 			if($guestbook_item&&!$guestbook_item->parent_srl) $guestbook_item->parent_srl = $guestbook_item->guestbook_item_srl;
 
 			Context::set('guestbook_item',$guestbook_item);
