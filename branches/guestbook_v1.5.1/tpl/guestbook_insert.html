@@ -117,6 +117,21 @@
 			</td>
 		</tr>
 		<tr>
+			<th scope="row"><div>{$lang->header_text}</div></th>
+			<td>
+				{@$use_multilang_textarea = true}
+				<textarea name="header_text" id="header_text" class="vLang" rows="8" cols="42">{$module_info->header_text}</textarea>
+				<p>{$lang->about_header_text}</p>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row"><div>{$lang->footer_text}</div></th>
+			<td>
+				<textarea name="footer_text" id="footer_text" class="vLang" rows="8" cols="42">{$module_info->footer_text}</textarea>
+				<p>{$lang->about_footer_text}</p>
+			</td>
+		</tr>
+		<tr>
 			<th scope="row"><div>{$lang->description}</div></th>
 			<td>
 				<textarea name="description" class="inputTypeTextArea fullWidth" style="width:60%;height:100px">{htmlspecialchars($module_info->description)}</textarea>
