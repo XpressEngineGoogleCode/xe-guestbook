@@ -21,6 +21,13 @@ class guestbookController extends guestbook {
 		if($val->parent_srl>0 && !$this->grant->write_reply) return new Object(-1,'msg_not_permitted');
 		if(!$val->parent_srl && !$this->grant->write) return new Object(-1,'msg_not_permitted');
 
+		// Call a trigger (before)
+		$obj = $val;
+		if($val->guestbook_item_srl) $obj->document_srl = 0;
+		$output = ModuleHandler::triggerCall('guestbook.insertGuestbookItem', 'before', $obj);
+		if(!$output->toBool()) return $output;
+		unset($obj);
+
 		// set
 		$obj->module_srl = $this->module_srl;
 		$obj->content = $val->content;

@@ -18,6 +18,9 @@
             $oModuleModel = &getModel('module');
 			$oModuleController->insertTrigger('member.getMemberMenu', 'guestbook', 'controller', 'triggerMemberMenu', 'after');
 			$oModuleController->insertTrigger('menu.getModuleListInSitemap', 'guestbook', 'model', 'triggerModuleListInSitemap', 'after');
+
+			//2012-11-15 Add a spamfilter 
+			$oModuleController->insertTrigger('guestbook.insertGuestbookItem', 'spamfilter', 'controller', 'triggerInsertDocument', 'before');
             return new Object();
         }
 
@@ -28,6 +31,8 @@
             $oModuleModel = &getModel('module');
 			// 2012. 09. 11 when add new menu in sitemap, custom menu add
 			if(!$oModuleModel->getTrigger('menu.getModuleListInSitemap', 'guestbook', 'model', 'triggerModuleListInSitemap', 'after')) return true;
+			//2012-11-15 Add a spamfilter 
+			if(!$oModuleModel->getTrigger('guestbook.insertGuestbookItem', 'spamfilter', 'controller', 'triggerInsertDocument', 'before')) return true;
             return false;
         }
 
@@ -40,6 +45,10 @@
 			// 2012. 09. 11 when add new menu in sitemap, custom menu add
 			if(!$oModuleModel->getTrigger('menu.getModuleListInSitemap', 'guestbook', 'model', 'triggerModuleListInSitemap', 'after'))
 				$oModuleController->insertTrigger('menu.getModuleListInSitemap', 'guestbook', 'model', 'triggerModuleListInSitemap', 'after');
+
+			//2012-11-15 Add a spamfilter 
+			if(!$oModuleModel->getTrigger('guestbook.insertGuestbookItem', 'spamfilter', 'controller', 'triggerInsertDocument', 'before'))
+				$oModuleController->insertTrigger('guestbook.insertGuestbookItem', 'spamfilter', 'controller', 'triggerInsertDocument', 'before');
 
             return new Object(0, 'success_updated');
         }
