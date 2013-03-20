@@ -11,6 +11,6 @@
 		<condition operation="equal" column="parent_srl" var="parent_srl" filter="number" notnull="notnull" pipe="and"/>
     </conditions>
     <navigation>
-		<index var="sort_index" default="guestbook.regdate" order="order_type" />
+		<index var="sort_index" default="guestbook.list_order" order="order_type" />
     </navigation>
 </query>

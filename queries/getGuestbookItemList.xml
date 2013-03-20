@@ -15,6 +15,7 @@
 			<condition operation="like" column="user_name" var="user_name_search" pipe="or" />
 			<condition operation="like" column="nick_name" var="nick_name_search" pipe="or" />
 			<condition operation="like" column="homepage" var="homepage_search" pipe="or" />
+			<condition operation="likei_prefix" column="regdate" var="regdate_search" pipe="or" />
 			<condition operation="like" column="email_address" var="email_address_search" pipe="or" />
 			<condition operation="like" column="ipaddress" var="ipaddress_search" pipe="or" />
 			<condition operation="like" column="content" var="content_search" pipe="or" />
