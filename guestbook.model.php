@@ -31,16 +31,6 @@
             $args->order_type = $vars->order_type;
 			$args->parent_srl = 0;
 
-			if($vars->search_keyword){
-				$args->user_id_search = $vars->search_keyword;
-				$args->user_name_search = $vars->search_keyword;
-				$args->nick_name_search = $vars->search_keyword;
-				$args->homepage_search = $vars->search_keyword;
-				$args->email_address_search = $vars->search_keyword;
-				$args->ipaddress_search = $vars->search_keyword;
-				$args->content_search = $vars->search_keyword;
-			}
-
             $output = executeQueryArray('guestbook.getGuestbookItemList',$args);
 
             if(!$output->toBool() || !$output->data) return array();
@@ -68,7 +58,7 @@
 		 * @brief get memberInfo
 		 **/
 		function getMemberInfo($vars){
-			$args->email_address = $vars->email_address;
+			$args->user_name = $vars->user_name;
 			$args->password = $vars->password;
 			
 			$output = executeQueryArray('guestbook.getMemberInfo',$args);
@@ -81,11 +71,15 @@
             $oMemberModel = &getModel('member');
 
             $args->guestbook_item_srl = $guestbook_item_srl;
-            $output = executeQuery('guestbook.getGuestbookItem',$args);
-            if($output->data->member_srl){
-				$profile_info = $oMemberModel->getProfileImage($output->data->member_srl);
-                if($profile_info) $output->data->profile_image = $profile_info->src;
+            $output = executeQueryArray('guestbook.getGuestbookItem',$args);
+            if($output->data){
+                foreach($output->data as $key => $val) {
+                    if(!$val->member_srl) continue;
+                    $profile_info = $oMemberModel->getProfileImage($val->member_srl);
+                    if($profile_info) $output->data[$key]->profile_image = $profile_info->src;
+                }
             }
+
             return $output;
         }
 
@@ -102,20 +96,5 @@
             return (int)$total_count;
         }
 
-		 function getGuestbookItemComment($guestbook_item_srl) {
-			$args->guestbook_item_srl = $guestbook_item_srl;
-			$output = executeQueryArray('guestbook.getGuestbookItemComment', $args);
-
-			if(!$output->toBool() || !$output->data) return array();
-			return $output;
-		 }
-
-		/**
-		 * @brief return module name in sitemap
-		 **/
-		function triggerModuleListInSitemap(&$obj)
-		{
-			array_push($obj, 'guestbook');
-		}
     }
 ?>

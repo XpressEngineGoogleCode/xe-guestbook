@@ -51,12 +51,6 @@
             $this->add('module_srl',$output->get('module_srl'));
             $this->setMessage($msg_code);
 
-        	if(!in_array(Context::getRequestMethod(),array('XMLRPC','JSON'))) {
-				$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', 'admin', 'module_srl', $output->get('module_srl'), 'act', 'dispGuestbookAdminGuestbookInfo');
-				header('location:'.$returnUrl);
-				return;
-			}
-
         }
 
         /**
@@ -86,12 +80,6 @@
             $this->add('module','guestbook');
             $this->add('page',Context::get('page'));
             $this->setMessage('success_deleted');
-
-        	if(!in_array(Context::getRequestMethod(),array('XMLRPC','JSON'))) {
-				$returnUrl = Context::get('success_return_url') ? Context::get('success_return_url') : getNotEncodedUrl('', 'module', 'admin', 'module_srl', $output->get('module_srl'), 'act', 'dispGuestbookAdminContent');
-				header('location:'.$returnUrl);
-				return;
-			}
         }
 
     }

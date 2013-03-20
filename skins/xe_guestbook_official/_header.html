@@ -1,9 +1,15 @@
-<load target="css/guestbook.css" />
+<!--%import("css/guestbook.css")-->
+
 <div class="guestbook">
-	{$module_info->header_text}
     <div class="guestbookHeader">
-		<div cond="$module_info->mid" class="guestbookTitle">
+		<!--@if($module_info->mid)-->
+		<div class="guestbookTitle">
 			<h2 class="guestbookTitleText">Guestbook</h2>
-				<a cond="$grant->manager" class="setup" href="{getUrl('act','dispGuestbookAdminGuestbookInfo')}">{$lang->cmd_setup}</a>
+			<!--@if($is_logged)-->
+				<!--@if($logged_info->is_admin == 'Y')-->
+					<a class="setup" href="{getUrl('act','dispGuestbookAdminGuestbookInfo')}">{$lang->cmd_setup}</a>
+				<!--@end-->
+            <!--@end-->
 		</div>
+		<!--@end-->
     </div>

@@ -11,7 +11,6 @@
          * @brief initialize guestbook view class.
          **/
 		function init() {
-			if(!$this->grant->access) return new Object(-1,'msg_not_permitted');
 
 			if($this->module_info->list_count) $this->list_count = $this->module_info->list_count;
             if($this->module_info->page_count) $this->page_count = $this->module_info->page_count;
@@ -22,7 +21,7 @@
              **/
             $template_path = sprintf("%sskins/%s/",$this->module_path, $this->module_info->skin);
             if(!is_dir($template_path)||!$this->module_info->skin) {
-                $this->module_info->skin = 'xe_guestbook_official';
+                $this->module_info->skin = 'xe_guestbook';
                 $template_path = sprintf("%sskins/%s/",$this->module_path, $this->module_info->skin);
             }
             $this->setTemplatePath($template_path);		
@@ -73,9 +72,6 @@
             if(!in_array($args->sort_index, $this->order_target)) $args->sort_index = $this->module_info->order_target?$this->module_info->order_target:'list_order';
             if(!in_array($args->order_type, array('asc','desc'))) $args->order_type = $this->module_info->order_type?$this->module_info->order_type:'asc';
 
-			// search keyword
-			$args->search_keyword = Context::get('search_keyword');
-
 			$output = $oGuestbookModel->getGuestbookItemList($args);
 			$guestbook_list = array();
 
@@ -95,15 +91,12 @@
 				}
 			}
 
+
             Context::set('guestbook_list', $guestbook_list);
             Context::set('total_count', $output->total_count);
             Context::set('total_page', $output->total_page);
             Context::set('page', $output->page);
             Context::set('page_navigation', $output->page_navigation);
-
-			$security = new Security();
-			$security->encodeHTML('guestbook_list..content');
-
 		}
 
     }
