@@ -1,0 +1,1 @@
+A new XE module called Guestbook has been uploaded, it allows XE users add a Guestbook page to XE.
